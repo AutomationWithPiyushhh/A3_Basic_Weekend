@@ -1,8 +1,10 @@
 package working_with_webdriver;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebDriver.Navigation;
 import org.openqa.selenium.WebDriver.Options;
 import org.openqa.selenium.WebDriver.Window;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -18,12 +20,12 @@ public class FirstLine {
 
 //						driver = new EdgeDriver();
 //						driver = new FirefoxDriver();
-		
-		driver.get("https://www.instagram.com/"); //InvalidArgumentsException
-		
+
+		driver.get("https://www.instagram.com/"); // InvalidArgumentsException
+
 		String title = driver.getTitle();
 		System.out.println(title);
-		
+
 		String url = driver.getCurrentUrl();
 		System.out.println(url);
 //		System.out.println(driver.getPageSource());
@@ -31,39 +33,47 @@ public class FirstLine {
 //		maximizing the window
 		Options opt = driver.manage();
 		Window win = opt.window();
-		
+
 //		win.maximize();
 //		Thread.sleep(3000);
 //		win.minimize();
 //		Thread.sleep(3000);
 //		win.fullscreen();
-	
+
 		Dimension dim = win.getSize();
 		System.out.println(dim);
-		
+
 		System.out.println("height : " + dim.getHeight());
 		System.out.println("Width : " + dim.getWidth());
-		
+
 		Dimension dim2 = new Dimension(1000, 500);
 //		win.setSize(dim2);
-		
-		
+
 		Point pt = win.getPosition();
 		System.out.println("location is : " + pt);
 		System.out.println(pt.getX());
 		System.out.println(pt.getY());
-		
-		
+
 		Point pt2 = new Point(0, 0);
 		win.setPosition(pt2);
-		
-		
+
+		driver.findElement(By.linkText("Forgot password?")).click();
+
+		Navigation nav = driver.navigate();
+		Thread.sleep(2000);
+		nav.back();
+		Thread.sleep(2000);
+		nav.forward();
+		Thread.sleep(2000);
+		nav.refresh();
+		Thread.sleep(2000);
+		nav.to("https://www.facebook.com/");
+
 //		Clicking on Meta link
 //		driver.findElement(By.linkText("Meta")).click();
 //		Thread.sleep(3000);
 //		driver.close();
-		
-		
+
 //		System.out.println("Instagram closed...");
 		Thread.sleep(10000);
 		driver.quit();
