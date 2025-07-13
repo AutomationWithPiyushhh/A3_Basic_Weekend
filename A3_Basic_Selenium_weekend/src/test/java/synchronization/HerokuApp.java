@@ -3,10 +3,12 @@ package synchronization;
 import java.time.Duration;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class HerokuApp {
@@ -26,7 +28,12 @@ public class HerokuApp {
 		WebElement enable = driver.findElement(By.xpath("//button[text()='Enable']"));
 		enable.click();
 		
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2)); 
+//		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2)); 
+		
+		FluentWait wait = new FluentWait(driver);
+		wait.withTimeout(Duration.ofSeconds(15)); // explicit wait -> in parameter
+		wait.pollingEvery(Duration.ofSeconds(2)); // explicit wait -> absent
+		wait.ignoring(ElementClickInterceptedException.class); //To ignore the exception
 		
 		wait.until(ExpectedConditions.elementToBeClickable(
 				By.cssSelector("input[type='text']")));
